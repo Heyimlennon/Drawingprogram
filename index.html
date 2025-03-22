@@ -5,15 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skin Creator</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickr-widget@1.8.3/dist/themes/classic.min.css">
 </head>
 <body>
   <div id="app">
     <h1>Skin Creator</h1>
-    <canvas id="skinCanvas" width="200" height="200"></canvas>
+    <div>
+      <label for="brushSelector">Brush Type: </label>
+      <select id="brushSelector">
+        <option value="basic">Basic</option>
+        <option value="circle">Circle</option>
+        <option value="texture">Texture</option>
+      </select>
+    </div>
+    <div>
+      <label for="colorPicker">Select Color: </label>
+      <input id="colorPicker" type="color" value="#000000" />
+    </div>
+    <canvas id="skinCanvas" width="400" height="400"></canvas>
     <div>
       <button id="saveBtn">Save Skin</button>
     </div>
   </div>
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pickr-widget@1.8.3/dist/pickr.min.js"></script>
 </body>
 </html>
