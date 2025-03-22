@@ -48,6 +48,7 @@ canvas.addEventListener('mousemove', (e) => {
         ctx.fill();
         break;
       case 'texture':
+        // Texture brush logic (using an image or pattern)
         const pattern = ctx.createPattern(document.getElementById('texturePattern'), 'repeat');
         ctx.fillStyle = pattern;
         ctx.fillRect(e.offsetX - brushSize / 2, e.offsetY - brushSize / 2, brushSize, brushSize);
