@@ -26,14 +26,12 @@ pickr.on('change', (color) => {
   brushColor = color.toHEXA().toString();
 });
 
-// Simple brush logic
+// Variables to track the drawing state
 let drawing = false;
+let lastX = 0;
+let lastY = 0;
 
-canvas.addEventListener('mousedown', (e) => {
-  drawing = true;
-  ctx.moveTo(e.offsetX, e.offsetY);
-});
-
+// Set the brush size based on user input or defaults
 canvas.addEventListener('mousemove', (e) => {
   if (drawing) {
     switch (brushType) {
@@ -50,25 +48,36 @@ canvas.addEventListener('mousemove', (e) => {
         ctx.fill();
         break;
       case 'texture':
-        // Texture brush logic (using an image or pattern)
         const pattern = ctx.createPattern(document.getElementById('texturePattern'), 'repeat');
         ctx.fillStyle = pattern;
         ctx.fillRect(e.offsetX - brushSize / 2, e.offsetY - brushSize / 2, brushSize, brushSize);
         break;
     }
+    lastX = e.offsetX;
+    lastY = e.offsetY;
   }
 });
 
+// Start drawing when mouse is pressed
+canvas.addEventListener('mousedown', (e) => {
+  drawing = true;
+  lastX = e.offsetX;
+  lastY = e.offsetY;
+  ctx.beginPath(); // Start a new path
+  ctx.moveTo(lastX, lastY); // Move to the start position
+});
+
+// Stop drawing when mouse is released
 canvas.addEventListener('mouseup', () => {
   drawing = false;
 });
 
-// Brush selector
+// Brush selector to change brush type
 document.getElementById('brushSelector').addEventListener('change', (e) => {
   brushType = e.target.value;
 });
 
-// Save button functionality
+// Save button functionality to save the skin
 document.getElementById('saveBtn').addEventListener('click', () => {
   const dataUrl = canvas.toDataURL('image/png');
   const link = document.createElement('a');
